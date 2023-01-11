@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.login.simplelogin.dto.User;
 import org.login.simplelogin.service.LoginService;
 
 /**
@@ -28,6 +29,8 @@ public class LoginSevlet extends HttpServlet {
 		LoginService loginservice = new LoginService();
 		boolean result=loginservice.auth(userid, password);
 		if (result) {
+			User user=loginservice.getUserdetails(userid);
+			request.getSession().setAttribute("user",user);
 			response.sendRedirect("sucess.jsp");
 			return;
 		}
